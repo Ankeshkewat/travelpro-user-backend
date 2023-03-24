@@ -45,7 +45,7 @@ app.get('/auth/google/callback',
 
 
 app.get('/login/github', (req, res) => {
-    res.sendFile('https://wondrous-biscuit-d5ba9b.netlify.app/signup.html')
+    res.sendFile('https://travelproweb.netlify.app/signup.html')
 })
 
 app.get('/auth/github', async (req, res) => {
@@ -75,8 +75,8 @@ app.get('/auth/github', async (req, res) => {
     const isAlreadyExist = await UserModel.findOne({ email })
 
     if (isAlreadyExist) {
-        const token = jwt.sign({ id: isAlreadyExist._id, first_name: isAlreadyExist.first_name }, process.env.secret, { expiresIn: '5 days' })
-        return res.redirect(`https://wondrous-biscuit-d5ba9b.netlify.app/signup?token=${token}&name=${isAlreadyExist.first_name}`)
+        const token = jwt.sign({ "userId": isAlreadyExist._id, email: isAlreadyExist.first_name }, process.env.secret)
+        return res.redirect(`https://travelproweb.netlify.app/signup.html?token=${token}&name=${isAlreadyExist.first_name}`)
     }
     let name = userDetals.name
     name = name.split(' ');
@@ -89,8 +89,8 @@ app.get('/auth/github', async (req, res) => {
     await user.save()
     console.log(user._id)
 
-    const token = jwt.sign({ id: user._id, first_name: user.first_name }, process.env.secret, { expiresIn: '5 days' })
-    return res.redirect(`https://wondrous-biscuit-d5ba9b.netlify.app/signup?token=${token}&name=${user.first_name}`)
+    const token = jwt.sign({ 'userId': user._id, email: name }, process.env.secret)
+    return res.redirect(`https://travelproweb.netlify.app/signup.html?token=${token}&name=${user.first_name}`)
     
 })
 
