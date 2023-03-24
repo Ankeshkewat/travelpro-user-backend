@@ -9,7 +9,7 @@ const {UserModel}=require('../models/user.model')
 passport.use(new GoogleStrategy({
     clientID: process.env.clientId,
     clientSecret: process.env.clientSecret,
-    callbackURL: "https://sore-tan-gecko-tam.cyclic.app/auth/google/callback"
+    callbackURL: "https://travel-pro-user.onrender.com/auth/google/callback"
 },
     async function (accessToken, refreshToken, profile, cb) {
         const email = profile._json.email
