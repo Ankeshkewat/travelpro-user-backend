@@ -49,25 +49,25 @@ UserRouter.post('/login', async (req, res) => {
             bcrypt.compare(password, user.password, async function (err, result) {
                 if (err) {
                     console.log(err);
-                    res.status(500).send({ 'msg': "Something went wrong" })
+                    res.status(500).send({ 'MSG': "Something went wrong" })
                 }
                 else if (result) {
                     let token = jwt.sign({ "userId": user._id, email: email }, process.env.secret);
-                    res.status(201).send({ "msg": "Login sueccesfull", "token": token, "name": user.first_name })
+                    res.status(201).send({ "MSG": "Login sueccesfull", "token": token, "name": user.first_name })
                 }
                 else {
-                    res.send({ 'msg': "incorrect password" })
+                    res.send({ 'MSG': "incorrect password" })
                 }
             })
         }
         catch (err) {
             // internal failure
             console.log(err)
-            res.status(500).send({ "msg": "Somethng went wrong" })
+            res.status(500).send({ "MSG": "Somethng went wrong" })
         }
     }
     else {
-        res.status(401).send({ "msg": "Invailid credentials" })
+        res.status(401).send({ "MSG": "Invailid credentials" })
     }
 })
 
